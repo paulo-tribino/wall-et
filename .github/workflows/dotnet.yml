@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FOLDER_PATH: Template.sln
+      FOLDER_PATH: backend/wall-et.sln
 
     steps:
     - uses: actions/checkout@v4
