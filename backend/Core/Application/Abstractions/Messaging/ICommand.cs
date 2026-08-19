@@ -1,12 +1,9 @@
-﻿using MediatR;
-using SharedKernel;
+﻿namespace Application.Abstractions.Messaging;
 
-namespace Application.Abstractions.Messaging;
-
-public interface ICommand : IRequest<Result>
+public interface ICommand
 {
 }
 
-public interface ICommand<TResponse> : IRequest<Result<TResponse>>
+public interface ICommand<TResponse>
 {
 }

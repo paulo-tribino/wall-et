@@ -19,7 +19,7 @@ internal sealed class CheckHealthQueryHandler : IQueryHandler<CheckHealthQuery, 
         _dbContext = dbContext;
     }
 
-    public async Task<Result<HealthCheckDto>> Handle(
+    public async Task<Result<HealthCheckDto>> HandleAsync(
         CheckHealthQuery request,
         CancellationToken cancellationToken)
     {
