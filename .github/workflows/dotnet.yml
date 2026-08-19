@@ -1,0 +1,32 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Back-End CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      FOLDER_PATH: Template.sln
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.FOLDER_PATH }}
+    - name: Build
+      run: dotnet build ${{ env.FOLDER_PATH }} --no-restore
+    - name: Test
+      run: dotnet test ${{ env.FOLDER_PATH }} --no-build --verbosity normal

@@ -1,0 +1,52 @@
+# Visual Studio specific
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+**/bin/
+**/obj/
+out/
+TestResults/
+*.Cache
+*.dll
+*.exe
+*.pdb
+*.log
+
+# Rider specific
+.idea/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+
+# Logs & Debugging
+*.log
+*.tlog
+*.wrn
+*.err
+
+# Coverage & Profiling
+*.coverage
+*.coveragexml
+*.opencover.xml
+*.snap
+
+# User Secrets
+secrets.json
+
+# Azure Functions
+local.settings.json
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+/WebApi/appsettings.Development.json
