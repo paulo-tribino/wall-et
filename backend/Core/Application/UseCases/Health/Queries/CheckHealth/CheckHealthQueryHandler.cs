@@ -4,9 +4,9 @@ using Application.Constants.Health;
 using Application.Dtos;
 using Application.Dtos.Enums;
 using Application.Errors;
-using Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
+using SharedKernel.Extensions;
 
 namespace Application.UseCases.Health.Queries.CheckHealth;
 

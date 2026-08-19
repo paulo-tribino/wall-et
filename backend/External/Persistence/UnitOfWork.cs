@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Database;
+﻿using Application.Abstractions.Database;
 
 namespace Persistence;
 

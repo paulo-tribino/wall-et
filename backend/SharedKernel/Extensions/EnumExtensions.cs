@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace Application.Extensions
+namespace SharedKernel.Extensions
 {
     public static class EnumExtensions
     {

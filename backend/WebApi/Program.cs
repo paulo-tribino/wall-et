@@ -1,7 +1,5 @@
 using Application.DI;
 using Infrastructure.DI;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
 using Persistence.DI;
 using Presentation.DI;
 using Presentation.Extensions;
