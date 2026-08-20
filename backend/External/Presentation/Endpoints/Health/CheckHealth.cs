@@ -1,5 +1,5 @@
+using Application.Abstractions.Messaging;
 using Application.UseCases.Health.Queries.CheckHealth;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -22,7 +22,7 @@ internal sealed class CheckHealth : IEndpoint
     {
         var query = new CheckHealthQuery();
 
-        var result = await sender.Send(query, cancellationToken);
+        var result = await sender.SendAsync(query, cancellationToken);
 
         return result.IsSuccess
             ? Results.Ok(result.Value)
