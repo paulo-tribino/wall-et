@@ -4,7 +4,6 @@ using Application.Constants.Health;
 using Application.Dtos;
 using Application.Dtos.Enums;
 using Application.Errors;
-using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 using SharedKernel.Extensions;
 
@@ -12,11 +11,11 @@ namespace Application.UseCases.Health.Queries.CheckHealth;
 
 internal sealed class CheckHealthQueryHandler : IQueryHandler<CheckHealthQuery, HealthCheckDto>
 {
-    private readonly IApplicationDbContext _dbContext;
+    private readonly IDatabaseHealthChecker _databaseHealthChecker;
 
-    public CheckHealthQueryHandler(IApplicationDbContext dbContext)
+    public CheckHealthQueryHandler(IDatabaseHealthChecker databaseHealthChecker)
     {
-        _dbContext = dbContext;
+        _databaseHealthChecker = databaseHealthChecker;
     }
 
     public async Task<Result<HealthCheckDto>> HandleAsync(
@@ -25,12 +24,8 @@ internal sealed class CheckHealthQueryHandler : IQueryHandler<CheckHealthQuery, 
     {
         try
         {
-            if (_dbContext is not DbContext dbContext)
-            {
-                return Result.Failure<HealthCheckDto>(HealthErrors.DatabaseUnavailable);
-            }
-
-            var canConnect = await dbContext.Database.CanConnectAsync(cancellationToken);
+            var canConnect = await _databaseHealthChecker
+                .CanConnectAsync(cancellationToken);
 
             if (!canConnect)
             {

@@ -4,9 +4,9 @@ namespace Persistence;
 
 internal sealed class UnitOfWork : IUnitOfWork
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly IApplicationDbContext _dbContext;
 
-    public UnitOfWork(ApplicationDbContext context)
+    public UnitOfWork(IApplicationDbContext context)
     {
         _dbContext = context;
     }

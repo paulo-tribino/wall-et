@@ -15,4 +15,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(PersistanceAssembly.Assembly);
     }
+
+    public Task<bool> CanConnectAsync(CancellationToken cancellationToken)
+    {
+        return Database.CanConnectAsync(cancellationToken);
+    }
 }

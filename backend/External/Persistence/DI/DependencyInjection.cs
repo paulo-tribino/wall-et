@@ -13,6 +13,7 @@ public static class DependencyInjection
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+        services.AddScoped<IDatabaseHealthChecker, DatabaseHealthChecker>();
 
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
