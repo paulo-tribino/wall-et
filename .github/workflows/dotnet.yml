@@ -36,4 +36,4 @@ jobs:
     
     - name: Test
       working-directory: ${{ env.FOLDER_PATH }}
-      run: dotnet test --solution ${{ env.PROJECT_NAME }} --no-build --verbosity normal
+      run: dotnet test ${{ env.PROJECT_NAME }} --no-build --verbosity normal
