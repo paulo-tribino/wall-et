@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FOLDER_PATH: Backend/wall-et.sln
+      FOLDER_PATH: Backend
+      PROJECT_NAME: wall-et.sln
 
     steps:
     - uses: actions/checkout@v4
@@ -24,9 +25,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
+
     - name: Restore dependencies
-      run: dotnet restore ${{ env.FOLDER_PATH }}
+      working-directory: ${{ env.FOLDER_PATH }}
+      run: dotnet restore ${{ env.PROJECT_NAME }}
+    
     - name: Build
-      run: dotnet build ${{ env.FOLDER_PATH }} --no-restore
+      working-directory: ${{ env.FOLDER_PATH }}
+      run: dotnet build ${{ env.PROJECT_NAME }} --no-restore
+    
     - name: Test
-      run: dotnet test --solution ${{ env.FOLDER_PATH }} --no-build --verbosity normal
+      working-directory: ${{ env.FOLDER_PATH }}
+      run: dotnet test --solution ${{ env.PROJECT_NAME }} --no-build --verbosity normal
