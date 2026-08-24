@@ -16,4 +16,9 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Users\Commands\" />
+    <Folder Include="UseCases\Users\Queries\" />
+  </ItemGroup>
+
 </Project>

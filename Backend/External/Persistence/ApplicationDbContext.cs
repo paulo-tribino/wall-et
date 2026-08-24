@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Database;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DI;
 
@@ -10,6 +11,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         : base(options)
     {
     }
+
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

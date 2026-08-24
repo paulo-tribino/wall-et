@@ -5,9 +5,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Repositories\" />
-    <Folder Include="Entities\" />
     <Folder Include="Enums\" />
-    <Folder Include="Errors\" />
   </ItemGroup>
 
 </Project>

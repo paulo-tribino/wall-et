@@ -22,44 +22,26 @@ public abstract class Entity
 
     public Guid? DeletedBy { get; protected set; }
 
-    public void OnEntityCreated()
+    public void SetCreated(Guid? userId)
     {
         if (CreatedAt == default)
         {
             CreatedAt = DateTime.UtcNow;
-        }
-    }
-
-    public void OnEntityUpdated()
-    {
-        UpdatedAt = DateTime.UtcNow;
-    }
-
-    public void OnEntityDeleted()
-    {
-        if (!DeletedAt.HasValue)
-        {
-            DeletedAt = DateTime.UtcNow;
-        }
-    }
-
-    public void SetCreatedBy(Guid? userId)
-    {
-        if (!CreatedBy.HasValue)
-        {
             CreatedBy = userId;
         }
     }
 
-    public void SetUpdatedBy(Guid? userId)
+    public void SetUpdated(Guid? userId)
     {
+        UpdatedAt = DateTime.UtcNow;
         UpdatedBy = userId;
     }
 
-    public void SetDeletedBy(Guid? userId)
+    public void SetDeleted(Guid? userId)
     {
-        if (!DeletedBy.HasValue)
+        if (!DeletedAt.HasValue)
         {
+            DeletedAt = DateTime.UtcNow;
             DeletedBy = userId;
         }
     }
