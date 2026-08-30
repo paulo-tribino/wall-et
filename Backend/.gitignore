@@ -14,7 +14,6 @@ TestResults/
 *.dll
 *.exe
 *.pdb
-*.log
 
 # Rider specific
 .idea/
@@ -39,6 +38,7 @@ project.assets.json
 
 # User Secrets
 secrets.json
+/docker/.env
 
 # Azure Functions
 local.settings.json
