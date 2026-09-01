@@ -126,7 +126,7 @@ Back-End/
    ```
 
 3. **Update connection string**
-   
+
    Edit `WebApi/appsettings.json` or use User Secrets (recommended):
    ```bash
    cd WebApi
@@ -212,7 +212,7 @@ public sealed class Product : Entity
         // Domain validation
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Name required", nameof(name));
-        
+
         return new Product(Guid.NewGuid(), name, price);
     }
 }
@@ -235,7 +235,10 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 }
 
 // 4. Create migration
-// dotnet ef migrations add AddProduct -p Persistence -s WebApi
+// dotnet ef migrations add InitialCreate --project External/Persistence/ --startup-project WebApi/
+
+// 5. Apply migration
+// dotnet ef database update --project External/Persistence/ --startup-project WebApi/
 ```
 
 ### Adding a New Use Case (CQRS)
@@ -245,7 +248,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 public sealed record GetProductByIdQuery(Guid Id, int page, int pageSize) : IQuery<ProductDto>;
 
 // 2. Create Handler
-internal sealed class GetProductByIdQueryHandler 
+internal sealed class GetProductByIdQueryHandler
     : IQueryHandler<GetProductByIdQuery, ProductDto>
 {
     private readonly IApplicationDbContext _dbContext;
@@ -279,7 +282,7 @@ internal sealed class GetProductByIdQueryHandler
 // 3. Define errors
 public static class ProductErrors
 {
-    public static Error NotFound(Guid id) => 
+    public static Error NotFound(Guid id) =>
         new("Product.NotFound", $"Product with ID {id} not found");
 }
 ```
@@ -439,7 +442,7 @@ This template is inspired by:
 
 ## 📧 Contact
 
-**Paulo Tribino**  
+**Paulo Tribino**
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/paulo-tribino/)
 
 For questions or support, please open an issue on GitHub.
