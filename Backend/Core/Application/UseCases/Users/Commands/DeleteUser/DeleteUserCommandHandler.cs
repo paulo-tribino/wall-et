@@ -1,7 +1,6 @@
 using Application.Abstractions.Database;
 using Application.Abstractions.Messaging;
 using Application.Abstractions.Respositories;
-using Domain.Errors;
 using SharedKernel;
 
 namespace Application.UseCases.Users.Commands.DeleteUser;
@@ -27,7 +26,7 @@ internal sealed class DeleteUserCommandHandler : ICommandHandler<DeleteUserComma
 
         if (user is null)
         {
-            return Result.Failure(UserErrors.NotFound);
+            return Result.Success();
         }
 
         user.Delete(command.deletedBy);

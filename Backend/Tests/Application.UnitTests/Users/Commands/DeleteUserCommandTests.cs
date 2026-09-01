@@ -2,7 +2,6 @@
 using Application.Abstractions.Respositories;
 using Application.UseCases.Users.Commands.DeleteUser;
 using Domain.Entities;
-using Domain.Errors;
 using NSubstitute;
 
 namespace Application.UnitTests.Users.Commands;
@@ -24,7 +23,7 @@ public sealed class DeleteUserCommandTests
     }
 
     [Fact]
-    public async Task HandleAsync_ReturnsError_WhenUserNotFound()
+    public async Task HandleAsync_ReturnsSuccess_WhenUserNotFound()
     {
         var cancellationToken = TestContext.Current.CancellationToken;
 
@@ -39,8 +38,7 @@ public sealed class DeleteUserCommandTests
         var result = await _handler.HandleAsync(command, cancellationToken);
 
         // Assert
-        Assert.True(result.IsFailure);
-        Assert.Equal(UserErrors.NotFound, result.Error);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
