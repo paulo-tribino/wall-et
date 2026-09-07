@@ -1,4 +1,5 @@
 using Application.Abstractions.Messaging;
+using Application.Errors;
 using Application.UseCases.Users.Commands.UpdateUserProfile;
 using Domain.Errors;
 using Microsoft.AspNetCore.Builder;
@@ -38,11 +39,14 @@ internal sealed class UpdateUserProfile : IEndpoint
 
         var result = await sender.SendAsync(command, cancellationToken);
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
         {
-            return result.Error.Code.EqualsIgnoreCase(UserErrors.NotFound.Code)
-                ? Results.NotFound(result.Error)
-                : Results.Conflict(result.Error);
+            return
+                result.Error.Code.EqualsIgnoreCase(ValidationErrors.BadRequest(string.Empty).Code)
+                ? Results.BadRequest(result.Error)
+                : result.Error.Code.EqualsIgnoreCase(UserErrors.NotFound.Code)
+                    ? Results.NotFound(result.Error)
+                    : Results.Conflict(result.Error);
         }
 
         return Results.NoContent();

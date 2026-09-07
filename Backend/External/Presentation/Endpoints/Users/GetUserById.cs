@@ -1,10 +1,12 @@
 using Application.Abstractions.Messaging;
 using Application.Dtos;
+using Application.Errors;
 using Application.UseCases.Users.Queries.GetUserById;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Presentation.Constants;
+using SharedKernel.Extensions;
 
 namespace Presentation.Endpoints.Users;
 
@@ -30,8 +32,13 @@ internal sealed class GetUserById : IEndpoint
 
         var result = await sender.SendAsync(query, cancellationToken);
 
-        return result.IsSuccess
-            ? Results.Ok(result.Value)
-            : Results.NotFound(result.Error);
+        if (result.IsFailure)
+        {
+            return result.Error.Code.EqualsIgnoreCase(ValidationErrors.BadRequest(string.Empty).Code)
+                ? Results.BadRequest(result.Error)
+                : Results.NotFound(result.Error);
+        }
+
+        return Results.Ok(result.Value);
     }
 }

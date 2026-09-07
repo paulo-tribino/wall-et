@@ -26,9 +26,9 @@ public sealed class UpdateUserProfileCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenUserNotFound()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .GetByIdAsync(Arg.Any<Guid>(), cancellationToken)
             .Returns(Task.FromResult<User?>(null));
@@ -46,9 +46,9 @@ public sealed class UpdateUserProfileCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenUsernameAlreadyInUse()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser(username: "notjohndoe");
 
         _userRepository
@@ -72,9 +72,9 @@ public sealed class UpdateUserProfileCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenEmailAlreadyInUse()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser(email: "notjohndoe@example.com");
 
         _userRepository
@@ -98,9 +98,9 @@ public sealed class UpdateUserProfileCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenProfileUpdatedSuccessfully()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser();
 
         _userRepository

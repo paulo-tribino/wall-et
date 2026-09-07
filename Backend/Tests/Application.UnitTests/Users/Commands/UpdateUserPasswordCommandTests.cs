@@ -30,9 +30,9 @@ public sealed class UpdateUserPasswordCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenUserNotFound()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .GetByIdAsync(Arg.Any<Guid>(), cancellationToken)
             .Returns(Task.FromResult<User?>(null));
@@ -50,9 +50,9 @@ public sealed class UpdateUserPasswordCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenCurrentPasswordIsInvalid()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser();
 
         _userRepository
@@ -76,9 +76,9 @@ public sealed class UpdateUserPasswordCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenPasswordUpdatedSuccessfully()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser(passwordHash: "hashed_current_password");
 
         _userRepository

@@ -1,9 +1,11 @@
 using Application.Abstractions.Messaging;
+using Application.Errors;
 using Application.UseCases.Users.Commands.DeleteUser;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Presentation.Constants;
+using SharedKernel.Extensions;
 
 namespace Presentation.Endpoints.Users;
 
@@ -29,8 +31,13 @@ internal sealed class DeleteUser : IEndpoint
 
         var result = await sender.SendAsync(command, cancellationToken);
 
-        return result.IsSuccess
-            ? Results.NoContent()
-            : Results.NotFound(result.Error);
+        if (result.IsFailure)
+        {
+            return result.Error.Code.EqualsIgnoreCase(ValidationErrors.BadRequest(string.Empty).Code)
+                ? Results.BadRequest(result.Error)
+                : Results.NotFound(result.Error);
+        }
+
+        return Results.NoContent();
     }
 }

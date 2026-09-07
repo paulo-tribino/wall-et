@@ -1,5 +1,3 @@
-using FluentValidation;
-using Infrastructure.DI;
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.Extensions;
 
@@ -19,8 +17,6 @@ public static class DependencyInjection
                     .AllowAnyMethod();
             });
         });
-
-        services.AddValidatorsFromAssembly(PresentationAssembly.Assembly, includeInternalTypes: true);
 
         services.AddEndpoints();
 

@@ -21,6 +21,7 @@ public sealed class GetUsersQueryHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WithPagedList()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
         _userView

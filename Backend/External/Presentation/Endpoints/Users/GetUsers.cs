@@ -4,6 +4,7 @@ using Application.Dtos.Base;
 using Application.UseCases.Users.Queries.GetUsers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Presentation.Constants;
 
@@ -24,15 +25,18 @@ internal sealed class GetUsers : IEndpoint
     private static async Task<IResult> GetUsersHandlerAsync(
         ISender sender,
         CancellationToken cancellationToken,
-        int page = 1,
-        int pageSize = 20)
+        [FromQuery] int page,
+        [FromQuery] int pageSize)
     {
         var query = new GetUsersQuery(page, pageSize);
 
         var result = await sender.SendAsync(query, cancellationToken);
 
-        return result.IsSuccess
-            ? Results.Ok(result.Value)
-            : Results.BadRequest(result.Error);
+        if (result.IsFailure)
+        {
+            return Results.BadRequest(result.Error);
+        }
+
+        return Results.Ok(result.Value);
     }
 }

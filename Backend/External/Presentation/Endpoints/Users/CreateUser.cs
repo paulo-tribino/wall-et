@@ -1,9 +1,11 @@
 using Application.Abstractions.Messaging;
+using Application.Errors;
 using Application.UseCases.Users.Commands.CreateUser;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Presentation.Constants;
+using SharedKernel.Extensions;
 
 namespace Presentation.Endpoints.Users;
 
@@ -34,8 +36,13 @@ internal sealed partial class CreateUser : IEndpoint
 
         var result = await sender.SendAsync(command, cancellationToken);
 
-        return result.IsSuccess
-            ? Results.Created($"/api/users/{result.Value}", result.Value)
-            : Results.Conflict(result.Error);
+        if (result.IsFailure)
+        {
+            return result.Error.Code.EqualsIgnoreCase(ValidationErrors.BadRequest(string.Empty).Code)
+                ? Results.BadRequest(result.Error)
+                : Results.Conflict(result.Error);
+        }
+
+        return Results.Created($"/api/users/{result.Value}", result.Value);
     }
 }

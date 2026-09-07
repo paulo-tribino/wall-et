@@ -21,9 +21,9 @@ public sealed class GetUserByIdQueryHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenUserNotFound()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userView
             .GetByIdAsync(Arg.Any<Guid>(), cancellationToken)
             .Returns(Task.FromResult<UserDto?>(null));
@@ -41,9 +41,9 @@ public sealed class GetUserByIdQueryHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenUserFound()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var userId = Guid.NewGuid();
         var userDto = UserFixture.CreateUserDto(userId);
 

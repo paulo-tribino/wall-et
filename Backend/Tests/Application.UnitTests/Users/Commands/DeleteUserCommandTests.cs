@@ -25,9 +25,9 @@ public sealed class DeleteUserCommandTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenUserNotFound()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .GetByIdAsync(Arg.Any<Guid>(), cancellationToken)
             .Returns(Task.FromResult<User?>(null));
@@ -44,9 +44,9 @@ public sealed class DeleteUserCommandTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenUserDeleted()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         var user = UserFixture.CreateUser();
 
         _userRepository

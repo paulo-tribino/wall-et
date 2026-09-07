@@ -30,9 +30,9 @@ public sealed class CreateUserCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenUsernameAlreadyExists()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .ExistsByUsernameAsync(Arg.Any<string>(), cancellationToken)
             .Returns(true);
@@ -50,9 +50,9 @@ public sealed class CreateUserCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsError_WhenEmailAlreadyExists()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .ExistsByUsernameAsync(Arg.Any<string>(), cancellationToken)
             .Returns(false);
@@ -74,9 +74,9 @@ public sealed class CreateUserCommandHandlerTests
     [Fact]
     public async Task HandleAsync_ReturnsSuccess_WhenUserIsCreatedSuccessfully()
     {
+        // Arrange
         var cancellationToken = TestContext.Current.CancellationToken;
 
-        // Arrange
         _userRepository
             .ExistsByUsernameAsync(Arg.Any<string>(), cancellationToken)
             .Returns(false);

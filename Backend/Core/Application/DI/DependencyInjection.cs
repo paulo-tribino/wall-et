@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Application.Abstractions.Messaging;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,13 +11,17 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddHandlers();
-        services.TryAddScoped<ISender, Sender>();
+        services.AddValidatorsFromAssembly(ApplicationAssembly.Assembly, includeInternalTypes: true);
+        services.TryAddScoped<ISender>(serviceProvider =>
+            new ValidationSenderDecorator(
+                new Sender(serviceProvider),
+                serviceProvider));
 
         return services;
     }
 
     private static IServiceCollection AddHandlers(
-    this IServiceCollection services)
+        this IServiceCollection services)
     {
         var handlerTypes = ApplicationAssembly.Assembly
             .DefinedTypes

@@ -28,7 +28,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("Wall-et API Reference")
+            .WithTheme(ScalarTheme.Moon)
+            .HideDeveloperTools()
+            .SortTagsAlphabetically()
+            .SortOperationsByMethod();
+    });
 }
 
 app.UseCors("CorsPolicy");
