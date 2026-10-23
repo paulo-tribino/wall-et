@@ -1,6 +1,6 @@
 using Application.Abstractions.Database;
 using Application.Abstractions.Hashers;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Application.UseCases.Users.Commands.UpdateUserPassword;
 using Domain.Entities;
 using Domain.Errors;

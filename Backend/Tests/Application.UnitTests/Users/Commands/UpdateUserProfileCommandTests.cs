@@ -1,5 +1,5 @@
 using Application.Abstractions.Database;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Application.UseCases.Users.Commands.UpdateUserProfile;
 using Domain.Entities;
 using Domain.Errors;

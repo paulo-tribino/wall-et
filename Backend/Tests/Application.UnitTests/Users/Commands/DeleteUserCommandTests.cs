@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Database;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Application.UseCases.Users.Commands.DeleteUser;
 using Domain.Entities;
 using NSubstitute;
