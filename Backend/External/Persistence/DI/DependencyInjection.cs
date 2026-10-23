@@ -1,5 +1,5 @@
 using Application.Abstractions.Database;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Application.Abstractions.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +31,7 @@ public static class DependencyInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
         return services;
     }

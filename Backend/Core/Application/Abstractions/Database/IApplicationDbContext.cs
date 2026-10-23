@@ -7,6 +7,8 @@ public interface IApplicationDbContext
 {
     DbSet<User> Users { get; set; }
 
+    DbSet<RefreshToken> RefreshTokens { get; set; }
+
     Task<bool> CanConnectAsync(CancellationToken cancellationToken);
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

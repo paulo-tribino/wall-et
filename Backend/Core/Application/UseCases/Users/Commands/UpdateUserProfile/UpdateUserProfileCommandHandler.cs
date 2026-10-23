@@ -1,6 +1,6 @@
 using Application.Abstractions.Database;
 using Application.Abstractions.Messaging;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Domain.Errors;
 using SharedKernel;
 

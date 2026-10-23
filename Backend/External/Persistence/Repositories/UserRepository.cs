@@ -1,5 +1,5 @@
 using Application.Abstractions.Database;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +24,14 @@ internal sealed class UserRepository : IUserRepository
         return await _context.Users
             .FirstOrDefaultAsync(u =>
                 u.Id == id && !u.DeletedAt.HasValue,
+                cancellationToken);
+    }
+
+    public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u =>
+                u.Email == email && !u.DeletedAt.HasValue,
                 cancellationToken);
     }
 

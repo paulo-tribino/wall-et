@@ -1,7 +1,7 @@
 using Application.Abstractions.Database;
 using Application.Abstractions.Hashers;
 using Application.Abstractions.Messaging;
-using Application.Abstractions.Respositories;
+using Application.Abstractions.Repositories;
 using Domain.Entities;
 using Domain.Errors;
 using SharedKernel;

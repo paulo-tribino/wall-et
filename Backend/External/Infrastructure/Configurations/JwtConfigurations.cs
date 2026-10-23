@@ -8,5 +8,7 @@ public class JwtConfigurations
 
     public required string SecretKey { get; init; }
 
-    public int ExpiresInHours { get; init; }
+    public int AccessTokenExpiresInMinutes { get; init; }
+
+    public int RefreshTokenExpiresInDays { get; init; }
 }

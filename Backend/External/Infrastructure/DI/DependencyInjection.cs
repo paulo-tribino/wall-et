@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.AddAuth();
 
         services.AddTransient<IJwtProvider, JwtProvider>();
+        services.AddTransient<IRefreshTokenProvider, RefreshTokenProvider>();
         services.AddTransient<IPasswordHasher, PasswordHasher>();
 
         return services;

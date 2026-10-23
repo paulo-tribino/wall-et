@@ -1,6 +1,10 @@
-﻿namespace Application.Abstractions.Authentication;
+﻿using Domain.Entities;
+
+namespace Application.Abstractions.Authentication;
 
 public interface IJwtProvider
 {
-    string Generate();
+    string Generate(User user);
+
+    int ExpiresInSeconds { get; }
 }

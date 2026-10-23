@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Abstractions.Authentication;
+using Domain.Entities;
 using Infrastructure.Configurations;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -17,25 +18,25 @@ internal sealed class JwtProvider : IJwtProvider
         _configurations = configurations.Value;
     }
 
-    public string Generate()
+    public int ExpiresInSeconds => _configurations.AccessTokenExpiresInMinutes * 60;
+
+    public string Generate(User user)
     {
-        var claims = BuildClaims();
+        var claims = BuildClaims(user);
 
         var signingCredentials = BuildSigningCredentials();
 
         return BuildTokenValue(claims, signingCredentials);
     }
 
-    private static IEnumerable<Claim> BuildClaims()
+    private static IEnumerable<Claim> BuildClaims(User user)
     {
-        //new Claim[]
-        //{
-        //    new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-        //    new(JwtRegisteredClaimNames.Email, user.Email),
-        //    new(JwtRegisteredClaimNames.Name, user.FirstName),
-        //};
-
-        return Enumerable.Empty<Claim>();
+        return
+        [
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Name, user.Name)
+        ];
     }
 
     private SigningCredentials BuildSigningCredentials()
@@ -52,7 +53,7 @@ internal sealed class JwtProvider : IJwtProvider
             _configurations.Audience,
             claims,
             notBefore: null,
-            DateTime.UtcNow.AddHours(_configurations.ExpiresInHours),
+            expires: DateTime.UtcNow.AddMinutes(_configurations.AccessTokenExpiresInMinutes),
             signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
